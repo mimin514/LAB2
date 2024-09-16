@@ -123,10 +123,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
   setTimer(0,1000);
-  setTimer(1,500);
+  setTimer(1,50);
+  setTimer(2,1000);
   while (1)
   {
 
@@ -261,40 +262,30 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-int digit_index = 0;
-const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
 
-// Update to include all four pins
-const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
+int counter = 100,ccc1=9,ccc2=9;
+int pin_state = 0;  // 0 for PA6, 1 for PA7
 
-void display_digit(uint8_t digit)
-{
-    // Implement the logic to display the corresponding digit on the 7-segment display
-    // For example:
-    display1(digit);  // Assuming display7SEG is a function that takes a number and displays it
-}
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
-	        timerRun();
+		timerRun();
+		if(timer_flag[0]==1){
+			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			setTimer(0,1000);
+		}
+		if(timer_flag[1]==1){
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+			setTimer(1,500);
+		}
+		if(timer_flag[2]==1){
+			//if(aaa>9) aaa=0;
+			display1(4);
 
-	        if (timer_flag[0] == 1){
-	            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-	            setTimer(0, 1000);
-	        }
-
-	        if (timer_flag[1] == 1){
-	            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
-
-	            display_digit(digits[digit_index]);
-
-	            HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
-
-	            digit_index++;
-	            if (digit_index >= 4) digit_index = 0;
-	            setTimer(1,500);
-	        }
-	    }
+			setTimer(2,1000);
+		}
+	}
 	}
 /* USER CODE END 4 */
 

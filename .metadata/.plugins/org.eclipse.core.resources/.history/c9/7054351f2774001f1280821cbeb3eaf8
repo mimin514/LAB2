@@ -291,7 +291,10 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	            HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
 
 	            digit_index++;
-	            if (digit_index >= 4) digit_index = 0;
+	            if (digit_index >= sizeof(digits)) {
+	                digit_index = 0;
+	            }
+
 	            setTimer(1,500);
 	        }
 	    }

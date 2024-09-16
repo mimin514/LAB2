@@ -123,10 +123,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
   setTimer(0,1000);
   setTimer(1,500);
+  setTimer(2,500);
   while (1)
   {
 
@@ -278,21 +279,30 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM2){
 	        timerRun();
 
+	        // Toggle the dot every 1 second
 	        if (timer_flag[0] == 1){
 	            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 	            setTimer(0, 1000);
 	        }
 
+	        // Display digits on the 7-segment display every 500ms using four pins
 	        if (timer_flag[1] == 1){
-	            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+	            // Turn off all digits first
+	            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_SET);  // Turn off all segments
 
+	            // Display the current digit
 	            display_digit(digits[digit_index]);
 
-	            HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
+	            // Activate the corresponding PNP transistor by setting the appropriate pin to low
+	            HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], GPIO_PIN_RESET);  // Enable one digit by setting the pin low
 
+	            // Move to the next digit
 	            digit_index++;
-	            if (digit_index >= 4) digit_index = 0;
-	            setTimer(1,500);
+	            if (digit_index >= sizeof(digits)) {
+	                digit_index = 0;  // Reset to the first digit after reaching the end
+	            }
+
+	            setTimer(1, 500);  // Set the next display update in 500ms
 	        }
 	    }
 	}
