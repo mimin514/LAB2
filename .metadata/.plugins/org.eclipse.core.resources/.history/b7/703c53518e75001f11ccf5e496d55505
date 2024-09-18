@@ -99,7 +99,6 @@ int main(void)
 
   setTimer(0,1000);
   setTimer(1,500);
-  setTimer(2,500);
   while (1)
   {
 

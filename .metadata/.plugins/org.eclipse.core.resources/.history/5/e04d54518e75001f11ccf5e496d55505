@@ -94,22 +94,10 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        }
 
 	        if (timer_flag[1] == 1){
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
-
-				display_digit(digits[digit_index]);
-
-				HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
-
-				digit_index++;
-				if (digit_index >= 4) digit_index = 0;
-				setTimer(1,500);
-			}
-			if (timer_flag[2] == 1){
-				update7SEG(index_led);
-
+	        	update7SEG(index_led);
 				index_led = (index_led + 1) % MAX_LED;
-				setTimer(2, 500);
-			}
+	            setTimer(1,500);
+	        }
 
 	    }
 	}

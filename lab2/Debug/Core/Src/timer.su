@@ -2,4 +2,4 @@
 ../Core/Src/timer.c:32:6:timerRun	16	static
 ../Core/Src/timer.c:48:6:display_digit	16	static
 ../Core/Src/timer.c:52:6:update7SEG	16	static
-../Core/Src/timer.c:70:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/timer.c:86:6:HAL_TIM_PeriodElapsedCallback	16	static
