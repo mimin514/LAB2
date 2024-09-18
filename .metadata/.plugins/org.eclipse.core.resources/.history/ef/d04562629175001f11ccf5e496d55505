@@ -102,7 +102,19 @@ int main(void)
   setTimer(2,500);
   while (1)
   {
-	  runex5();
+	  second++;
+	  	  if (second >= 60) {
+	  		  second = 0;
+	  		  minute++;
+	  	  }
+	  	  if( minute >= 60) {
+	  		  minute = 0;
+	  		  hour++;
+	  	  }
+	  	  if( hour >=24){
+	  		  hour = 0;
+	  	  }
+	  	  updateClockBuffer();
 
 	  	  HAL_Delay(1000);
     /* USER CODE END WHILE */

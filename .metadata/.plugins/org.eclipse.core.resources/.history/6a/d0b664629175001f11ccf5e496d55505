@@ -99,21 +99,7 @@ void updateClockBuffer(void)
     led_buffer[2] = minute_tens; // Display minutes tens digit
     led_buffer[3] = minute_units; // Display minutes units digit
 }
-void runex5(void){
-	  second++;
-	  	  if (second >= 60) {
-	  		  second = 0;
-	  		  minute++;
-	  	  }
-	  	  if( minute >= 60) {
-	  		  minute = 0;
-	  		  hour++;
-	  	  }
-	  	  if( hour >=24){
-	  		  hour = 0;
-	  	  }
-	  	  updateClockBuffer();
-}
+
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
@@ -127,13 +113,46 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        if (timer_flag[1] == 1){
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
 
-				display_digit(led_buffer[digit_index]);
+				display_digit(digits[digit_index]);
 
 				HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
 
 				digit_index++;
 				if (digit_index >= 4) digit_index = 0;
-				setTimer(1,250);
+				setTimer(1,500);
+			}
+			if (timer_flag[2] == 1){
+//				second++;
+//				if (second >= 60)
+//				{
+//					second = 0;
+//					minute++;
+//				}
+//				if (minute >= 60)
+//				{
+//					minute = 0;
+//					hour++;
+//				}
+//				if (hour >= 24)
+//				{
+//					hour = 0;
+//				}
+//
+//				updateClockBuffer();
+//				// Refresh the display with the new values
+//
+//				if (led_state == 0) {
+//					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+//					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+//					display1(led_buffer[0]);
+//					led_state = 1;
+//				} else {
+//					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+//					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+//					display1(led_buffer[1]);
+//					led_state = 0;
+//				}
+				setTimer(2, 500);
 			}
 
 	    }
