@@ -49,3 +49,141 @@ Finished building: lab2.hex
  
 Finished building: lab2.list
  
+12:56:35 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab2.elf
+ 
+arm-none-eabi-size   lab2.elf 
+arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
+arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   7996	     20	   1724	   9740	   260c	lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: lab2.hex
+Finished building: lab2.list
+ 
+ 
+12:58:02 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab2.elf
+ 
+arm-none-eabi-size   lab2.elf 
+arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
+arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   7976	     20	   1724	   9720	   25f8	lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: lab2.hex
+Finished building: lab2.list
+ 
+ 
+13:00:21 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+make: *** Deleting file 'lab2.elf'
+make: unlink: lab2.elf: Permission denied
+make: *** [makefile:67: lab2.elf] Error 3
+Command canceled
+13:00:31 **** Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab2.elf
+ 
+arm-none-eabi-size   lab2.elf 
+arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
+arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8028	     24	   1720	   9772	   262c	lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: lab2.list
+Finished building: lab2.hex
+ 
+ 
+13:05:50 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:276:8: error: 'led_state' undeclared (first use in this function); did you mean 'pin_state'?
+  276 |    if (led_state == 0) {
+      |        ^~~~~~~~~
+      |        pin_state
+../Core/Src/main.c:276:8: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:280:14: error: 'led1_digit' undeclared (first use in this function)
+  280 |     display1(led1_digit);                                 // Hiển thị số 1 lên LED thứ nhất
+      |              ^~~~~~~~~~
+../Core/Src/main.c:286:14: error: 'led2_digit' undeclared (first use in this function)
+  286 |     display1(led2_digit);                                 // Hiển thị số 2 lên LED thứ hai
+      |              ^~~~~~~~~~
+make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+13:06:00 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:276:8: error: 'led_state' undeclared (first use in this function); did you mean 'pin_state'?
+  276 |    if (led_state == 0) {
+      |        ^~~~~~~~~
+      |        pin_state
+../Core/Src/main.c:276:8: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+13:06:16 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab2.elf
+ 
+arm-none-eabi-size   lab2.elf 
+arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
+arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8032	     20	   1724	   9776	   2630	lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: lab2.hex
+ 
+Finished building: lab2.list
+ 
+13:09:25 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab2.elf
+ 
+arm-none-eabi-size   lab2.elf 
+arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
+arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8000	     20	   1724	   9744	   2610	lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: lab2.hex
+Finished building: lab2.list
+ 
+ 
+13:10:31 **** Incremental Build of configuration Debug for project lab2 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab2.elf
+ 
+arm-none-eabi-size   lab2.elf 
+arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
+arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8000	     20	   1724	   9744	   2610	lab2.elf
+Finished building: default.size.stdout
+Finished building: lab2.hex
+ 
+ 
+Finished building: lab2.list
+ 

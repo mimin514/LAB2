@@ -123,10 +123,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
   setTimer(0,1000);
   setTimer(1,50);
+  setTimer(2,500);
   while (1)
   {
+
     /* USER CODE END WHILE */
 
 
@@ -258,7 +262,7 @@ static void MX_GPIO_Init(void)
 
 
 int counter = 100,cnt=1;
-int led_state = 0;  // 0 for PA6, 1 for PA7
+int pin_state = 0;  // 0 for PA6, 1 for PA7
 
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
@@ -273,13 +277,13 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 				// Bật LED thứ nhất (EN0 = 0, EN1 = 1)
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);  // EN0 = 0 (bật LED 1)
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);    // EN1 = 1 (tắt LED 2)
-				display1(1);                                 // Hiển thị số 1 lên LED thứ nhất
+				display1(led1_digit);                                 // Hiển thị số 1 lên LED thứ nhất
 				led_state = 1;
 			} else {
 				// Bật LED thứ hai (EN0 = 1, EN1 = 0)
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);    // EN0 = 1 (tắt LED 1)
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);  // EN1 = 0 (bật LED 2)
-				display1(2);                                 // Hiển thị số 2 lên LED thứ hai
+				display1(led2_digit);                                 // Hiển thị số 2 lên LED thứ hai
 				led_state = 0;
 			}
 			setTimer(1,500);

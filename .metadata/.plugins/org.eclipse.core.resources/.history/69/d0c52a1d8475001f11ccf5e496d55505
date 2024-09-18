@@ -123,10 +123,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
   setTimer(0,1000);
   setTimer(1,50);
+  setTimer(2,500);
   while (1)
   {
+
     /* USER CODE END WHILE */
 
 
@@ -258,7 +262,7 @@ static void MX_GPIO_Init(void)
 
 
 int counter = 100,cnt=1;
-int led_state = 0;  // 0 for PA6, 1 for PA7
+int pin_state = 0;  // 0 for PA6, 1 for PA7
 
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
