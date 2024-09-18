@@ -264,11 +264,15 @@ static void MX_GPIO_Init(void)
 
 int digit_index = 0;
 const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
+
+// Update to include all four pins
 const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
 
 void display_digit(uint8_t digit)
 {
-    display1(digit);
+    // Implement the logic to display the corresponding digit on the 7-segment display
+    // For example:
+    display1(digit);  // Assuming display7SEG is a function that takes a number and displays it
 }
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {

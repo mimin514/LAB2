@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00016436  00000000  00000000  0002ac20  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009ca2  00000000  00000000  00041056  2**0
+ 17 .debug_line   00009ca6  00000000  00000000  00041056  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081f24  00000000  00000000  0004acf8  2**0
+ 18 .debug_str    00081f24  00000000  00000000  0004acfc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000ccc1c  2**0
+ 19 .comment      00000050  00000000  00000000  000ccc20  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000268c  00000000  00000000  000ccc6c  2**2
+ 20 .debug_frame  0000268c  00000000  00000000  000ccc70  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -656,6 +656,7 @@ int main(void)
  8000544:	f44f 71fa 	mov.w	r1, #500	; 0x1f4
  8000548:	2001      	movs	r0, #1
  800054a:	f7ff ff8f 	bl	800046c <setTimer>
+  //GPIOA->ODR=0x0000;
   while (1)
  800054e:	e7fe      	b.n	800054e <main+0x36>
  8000550:	20000028 	.word	0x20000028
@@ -969,8 +970,8 @@ static void MX_GPIO_Init(void)
  8000708:	40010c00 	.word	0x40010c00
 
 0800070c <display_digit>:
-
-// Update to include all four pins
+int digit_index = 0;
+const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
 const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
 
 void display_digit(uint8_t digit)
@@ -980,9 +981,7 @@ void display_digit(uint8_t digit)
  8000710:	af00      	add	r7, sp, #0
  8000712:	4603      	mov	r3, r0
  8000714:	71fb      	strb	r3, [r7, #7]
-    // Implement the logic to display the corresponding digit on the 7-segment display
-    // For example:
-    display1(digit);  // Assuming display7SEG is a function that takes a number and displays it
+    display1(digit);
  8000716:	79fb      	ldrb	r3, [r7, #7]
  8000718:	4618      	mov	r0, r3
  800071a:	f7ff fd17 	bl	800014c <display1>
@@ -1058,17 +1057,14 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
  8000792:	3301      	adds	r3, #1
  8000794:	4a0a      	ldr	r2, [pc, #40]	; (80007c0 <HAL_TIM_PeriodElapsedCallback+0x98>)
  8000796:	6013      	str	r3, [r2, #0]
-	            if (digit_index >= sizeof(digits)) {
+	            if (digit_index >= 4) digit_index = 0;
  8000798:	4b09      	ldr	r3, [pc, #36]	; (80007c0 <HAL_TIM_PeriodElapsedCallback+0x98>)
  800079a:	681b      	ldr	r3, [r3, #0]
  800079c:	2b03      	cmp	r3, #3
- 800079e:	d902      	bls.n	80007a6 <HAL_TIM_PeriodElapsedCallback+0x7e>
-	                digit_index = 0;
+ 800079e:	dd02      	ble.n	80007a6 <HAL_TIM_PeriodElapsedCallback+0x7e>
  80007a0:	4b07      	ldr	r3, [pc, #28]	; (80007c0 <HAL_TIM_PeriodElapsedCallback+0x98>)
  80007a2:	2200      	movs	r2, #0
  80007a4:	601a      	str	r2, [r3, #0]
-	            }
-
 	            setTimer(1,500);
  80007a6:	f44f 71fa 	mov.w	r1, #500	; 0x1f4
  80007aa:	2001      	movs	r0, #1

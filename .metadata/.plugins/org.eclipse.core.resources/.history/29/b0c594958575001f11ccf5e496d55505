@@ -127,7 +127,6 @@ int main(void)
 //  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
   setTimer(0,1000);
   setTimer(1,500);
-  //GPIOA->ODR=0x0000;
   while (1)
   {
 
@@ -264,11 +263,15 @@ static void MX_GPIO_Init(void)
 
 int digit_index = 0;
 const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
+
+// Update to include all four pins
 const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
 
 void display_digit(uint8_t digit)
 {
-    display1(digit);
+    // Implement the logic to display the corresponding digit on the 7-segment display
+    // For example:
+    display1(digit);  // Assuming display7SEG is a function that takes a number and displays it
 }
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
@@ -277,7 +280,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 
 	        if (timer_flag[0] == 1){
 	            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-	            setTimer(0, 1000);
+	            setTimer(0, 2000);
 	        }
 
 	        if (timer_flag[1] == 1){
