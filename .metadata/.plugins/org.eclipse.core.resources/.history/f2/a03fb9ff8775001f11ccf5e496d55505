@@ -22,7 +22,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "led7.h"
-#include "timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +55,35 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#define NUM_TIMERS 10  // Number of timers you want to handle
+#define TICK 10
+int timer_flag[NUM_TIMERS];  // Timer flags for each timer
+int timer_counter[NUM_TIMERS];  // Timer counters for each timer
 
+void setTimer(int timer_id, int duration)
+{
+	if (timer_id >= 0 && timer_id < NUM_TIMERS)
+	    {
+	        timer_counter[timer_id] = duration / TICK;
+	        timer_flag[timer_id] = 0;
+	    }
+}
+void timerRun(void)
+{
+    for (int i = 0; i < NUM_TIMERS; i++)
+    {
+        if (timer_counter[i] >= 0)
+        {
+            timer_counter[i]--;  // Decrease the counter
+
+            if (timer_counter[i] <= 0)
+            {
+                timer_flag[i] = 1;  // Timer expired
+                // Optional: Trigger a specific action for timer expiration
+            }
+        }
+    }
+}
 /* USER CODE END 0 */
 
 /**
@@ -230,6 +257,36 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 
+int counter = 100,cnt=1;
+int led_state = 0;  // 0 for PA6, 1 for PA7
+
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM2){
+		timerRun();
+		if(timer_flag[0]==1){
+			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			setTimer(0,1000);
+		}
+		if(timer_flag[1]==1){
+			if (led_state == 0) {
+				// Bật LED thứ nhất (EN0 = 0, EN1 = 1)
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);  // EN0 = 0 (bật LED 1)
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);    // EN1 = 1 (tắt LED 2)
+				display1(1);                                 // Hiển thị số 1 lên LED thứ nhất
+				led_state = 1;
+			} else {
+				// Bật LED thứ hai (EN0 = 1, EN1 = 0)
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);    // EN0 = 1 (tắt LED 1)
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);  // EN1 = 0 (bật LED 2)
+				display1(2);                                 // Hiển thị số 2 lên LED thứ hai
+				led_state = 0;
+			}
+			setTimer(1,500);
+		}
+
+	}
+	}
 /* USER CODE END 4 */
 
 /**
