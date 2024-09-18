@@ -13,13 +13,9 @@
 int timer_flag[NUM_TIMERS];  // Timer flags for each timer
 int timer_counter[NUM_TIMERS];  // Timer counters for each timer
 
-int digit_index = 0;
-const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
-const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
-
 #define MAX_LED 4
-int led_buffer[MAX_LED] = {9, 8, 7, 6};  // Example buffer with 4 digits to display
-int index_led=0;
+int led_buffer[MAX_LED] = {1, 2, 3, 4};  // Example buffer with 4 digits to display
+int index_led = 0;
 
 void setTimer(int timer_id, int duration)
 {
@@ -40,6 +36,7 @@ void timerRun(void)
             if (timer_counter[i] <= 0)
             {
                 timer_flag[i] = 1;  // Timer expired
+                // Optional: Trigger a specific action for timer expiration
             }
         }
     }
@@ -78,22 +75,10 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        }
 
 	        if (timer_flag[1] == 1){
-	            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
-
-	            display_digit(digits[digit_index]);
-
-	            HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
-
-	            digit_index++;
-	            if (digit_index >= 4) digit_index = 0;
-	            setTimer(1,200);
-	        }
-	        if (timer_flag[2] == 1){
 	        	update7SEG(index_led);
 
-				index_led = (index_led + 1) % MAX_LED;
-				setTimer(2, 1600);
-			}
-	    }
-	}
+	        	index_led = (index_led + 1) % MAX_LED;
+	        }
+	 }
+}
 

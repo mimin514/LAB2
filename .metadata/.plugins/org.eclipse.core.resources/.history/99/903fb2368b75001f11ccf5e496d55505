@@ -89,7 +89,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	            setTimer(1,200);
 	        }
 	        if (timer_flag[2] == 1){
-	        	update7SEG(index_led);
+	        	update7SEG(index_led);  // Update the 7-segment display
 
 				index_led = (index_led + 1) % MAX_LED;
 				setTimer(2, 1600);
