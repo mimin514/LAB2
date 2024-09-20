@@ -101,7 +101,7 @@ int main(void)
 
   setTimer(0,1000);
   setTimer(1,250);
-  setTimer(2,250);
+  setTimer(2,1000);
 
 
   while (1)

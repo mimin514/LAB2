@@ -18,8 +18,11 @@ const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
 const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
 
 #define MAX_LED 4
-int led_buffer[MAX_LED] = {9, 8, 7, 6};  // Example buffer with 4 digits to display
+int led_buffer[MAX_LED];  // Example buffer with 4 digits to display
 int index_led=0;
+
+int hour = 15, minute = 8, second = 50;
+int led_state=0;
 
 void setTimer(int timer_id, int duration)
 {
@@ -83,6 +86,19 @@ void update7SEG(int index) {
             break;
     }
 }
+void updateClockBuffer(void)
+{
+    uint8_t hour_tens = hour / 10;
+    uint8_t hour_units = hour % 10;
+    uint8_t minute_tens = minute / 10;
+    uint8_t minute_units = minute % 10;
+
+    led_buffer[0] = hour_tens;
+    led_buffer[1] = hour_units;
+    led_buffer[2] = minute_tens;
+    led_buffer[3] = minute_units;
+}
+
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
@@ -94,9 +110,10 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        }
 
 	        if (timer_flag[1] == 1){
+
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
 
-				display_digit(digits[digit_index]);
+				display_digit(led_buffer[digit_index]);
 
 				HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
 
@@ -104,12 +121,22 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 				if (digit_index >= 4) digit_index = 0;
 				setTimer(1,250);
 			}
-			if (timer_flag[2] == 1){
-				update7SEG(index_led);
-
-				index_led = (index_led + 1) % MAX_LED;
-				setTimer(2, 250);
-			}
+	        if (timer_flag[2] == 1){
+	      	  second++;
+	      	  	  if (second >= 60) {
+	      	  		  second = 0;
+	      	  		  minute++;
+	      	  	  }
+	      	  	  if( minute >= 60) {
+	      	  		  minute = 0;
+	      	  		  hour++;
+	      	  	  }
+	      	  	  if( hour >=24){
+	      	  		  hour = 0;
+	      	  	  }
+	      	  	  updateClockBuffer();
+	        	setTimer(2,1000);
+	        }
 
 	    }
 	}
