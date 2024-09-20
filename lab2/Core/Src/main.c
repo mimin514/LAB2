@@ -63,6 +63,8 @@ static void MX_TIM2_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
+
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -98,8 +100,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   setTimer(0,1000);
-  setTimer(1,500);
-  setTimer(2,500);
+  setTimer(1,250);
+  setTimer(2,1000);
+
+
   while (1)
   {
 
