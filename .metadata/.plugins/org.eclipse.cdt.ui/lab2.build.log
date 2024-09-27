@@ -1,6 +1,25 @@
-15:15:58 **** Incremental Build of configuration Debug for project lab2 ****
+17:38:47 **** Incremental Build of configuration Debug for project lab2 ****
 make -j4 all 
-arm-none-eabi-gcc "../Core/Src/timer.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/timer.d" -MT"Core/Src/timer.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/timer.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:119:7: warning: unused variable 'i' [-Wunused-variable]
+  119 |   int i=0;
+      |       ^
+../Core/Src/main.c:117:11: warning: unused variable 'on' [-Wunused-variable]
+  117 |   uint8_t on[8] = {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66}; // "A"
+      |           ^~
+../Core/Src/main.c:116:11: warning: unused variable 'A' [-Wunused-variable]
+  116 |   uint8_t A[8] = {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66}; // "A"
+      |           ^
+../Core/Src/main.c:107:17: warning: unused variable 'chu' [-Wunused-variable]
+  107 |   unsigned char chu[][8] = {
+      |                 ^~~
+../Core/Src/main.c:106:7: warning: unused variable 'index_led_matrix' [-Wunused-variable]
+  106 |   int index_led_matrix = 0;
+      |       ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:105:13: warning: unused variable 'MAX_LED_MATRIX' [-Wunused-variable]
+  105 |   const int MAX_LED_MATRIX = 8;
+      |             ^~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: lab2.elf
  
@@ -8,13 +27,13 @@ arm-none-eabi-size   lab2.elf
 arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
 arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
    text	   data	    bss	    dec	    hex	filename
-   8312	     32	   1744	  10088	   2768	lab2.elf
+   8788	     32	   1744	  10564	   2944	lab2.elf
 Finished building: default.size.stdout
- 
 Finished building: lab2.hex
- 
 Finished building: lab2.list
  
+ 
+ 
 
-15:15:59 Build Finished. 0 errors, 0 warnings. (took 1s.56ms)
+17:38:49 Build Finished. 0 errors, 6 warnings. (took 2s.23ms)
 

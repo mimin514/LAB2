@@ -1,0 +1,84 @@
+/*
+ * ledma.c
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+#include "stm32f1xx_hal.h"
+#include "ledma.h"
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
+
+#define ROW0_PIN  GPIO_PIN_8   // Row 0 (connected to PB8)
+#define ROW1_PIN  GPIO_PIN_9   // Row 1 (connected to PB9)
+#define ROW2_PIN  GPIO_PIN_10  // Row 2 (connected to PB10)
+#define ROW3_PIN  GPIO_PIN_11  // Row 3 (connected to PB11)
+#define ROW4_PIN  GPIO_PIN_12  // Row 4 (connected to PB12)
+#define ROW5_PIN  GPIO_PIN_13  // Row 5 (connected to PB13)
+#define ROW6_PIN  GPIO_PIN_14  // Row 6 (connected to PB14)
+#define ROW7_PIN  GPIO_PIN_15  // Row 7 (connected to PB15)
+
+// Define the ULN2803 control pins (columns)
+#define ENM0_PIN GPIO_PIN_0   // Column 0 enable (connected to PB0)
+#define ENM1_PIN GPIO_PIN_1   // Column 1 enable (connected to PB1)
+#define ENM2_PIN GPIO_PIN_2   // Column 2 enable (connected to PB2)
+#define ENM3_PIN GPIO_PIN_3   // Column 3 enable (connected to PB3)
+#define ENM4_PIN GPIO_PIN_4   // Column 4 enable (connected to PB4)
+#define ENM5_PIN GPIO_PIN_5   // Column 5 enable (connected to PB5)
+#define ENM6_PIN GPIO_PIN_6   // Column 6 enable (connected to PB6)
+#define ENM7_PIN GPIO_PIN_7   // Column 7 enable (connected to PB7)
+
+void ShiftOut_row(uint8_t data)
+{
+    HAL_GPIO_WritePin(GPIOB, ROW0_PIN, (data & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW1_PIN, (data & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW2_PIN, (data & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW3_PIN, (data & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW4_PIN, (data & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW5_PIN, (data & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW6_PIN, (data & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW7_PIN, (data & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+}
+
+// Display function that takes row data and updates the matrix
+void display_matrix(uint8_t* rowData)
+{
+    for (int column = 0; column < 8; column++)
+    {
+        // Enable the corresponding column using ULN2803
+        switch (column)
+        {
+            case 0: HAL_GPIO_WritePin(GPIOB, ENM0_PIN, GPIO_PIN_SET); break;
+            case 1: HAL_GPIO_WritePin(GPIOB, ENM1_PIN, GPIO_PIN_SET); break;
+            case 2: HAL_GPIO_WritePin(GPIOB, ENM2_PIN, GPIO_PIN_SET); break;
+            case 3: HAL_GPIO_WritePin(GPIOB, ENM3_PIN, GPIO_PIN_SET); break;
+            case 4: HAL_GPIO_WritePin(GPIOB, ENM4_PIN, GPIO_PIN_SET); break;
+            case 5: HAL_GPIO_WritePin(GPIOB, ENM5_PIN, GPIO_PIN_SET); break;
+            case 6: HAL_GPIO_WritePin(GPIOB, ENM6_PIN, GPIO_PIN_SET); break;
+            case 7: HAL_GPIO_WritePin(GPIOB, ENM7_PIN, GPIO_PIN_SET); break;
+        }
+
+        // Set the row data to turn on the LEDs
+        ShiftOut_row(rowData[column]);
+
+        // Delay to allow the column to be visible
+        HAL_Delay(1); // Adjust this delay as needed for visibility
+
+        // Disable the column after updating
+        switch (column)
+        {
+            case 0: HAL_GPIO_WritePin(GPIOB, ENM0_PIN, GPIO_PIN_RESET); break;
+            case 1: HAL_GPIO_WritePin(GPIOB, ENM1_PIN, GPIO_PIN_RESET); break;
+            case 2: HAL_GPIO_WritePin(GPIOB, ENM2_PIN, GPIO_PIN_RESET); break;
+            case 3: HAL_GPIO_WritePin(GPIOB, ENM3_PIN, GPIO_PIN_RESET); break;
+            case 4: HAL_GPIO_WritePin(GPIOB, ENM4_PIN, GPIO_PIN_RESET); break;
+            case 5: HAL_GPIO_WritePin(GPIOB, ENM5_PIN, GPIO_PIN_RESET); break;
+            case 6: HAL_GPIO_WritePin(GPIOB, ENM6_PIN, GPIO_PIN_RESET); break;
+            case 7: HAL_GPIO_WritePin(GPIOB, ENM7_PIN, GPIO_PIN_RESET); break;
+        }
+    }
+}

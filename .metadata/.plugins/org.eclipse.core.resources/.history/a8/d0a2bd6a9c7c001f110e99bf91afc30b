@@ -1,0 +1,37 @@
+/*
+ * ledma.c
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+#include "stm32f1xx_hal.h"
+#include "ledma.h"
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+void updateLEDMatrix(uint8_t* pattern) {
+    // Tắt tất cả các hàng trước khi cập nhật
+    for (int i = 0; i < MAX_LED_MATRIX; i++) {
+        HAL_GPIO_WritePin(GPIOB, (1 << (i + 8)), GPIO_PIN_RESET); // Tắt tất cả hàng
+    }
+
+    // Cập nhật các cột LED
+    for (int row = 0; row < MAX_LED_MATRIX; row++) {
+        // Ghi dữ liệu cột từ pattern vào các chân GPIO
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, (pattern[row] & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, (pattern[row] & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, (pattern[row] & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, (pattern[row] & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, (pattern[row] & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, (pattern[row] & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, (pattern[row] & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, (pattern[row] & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+
+        // Bật hàng tương ứng
+        HAL_GPIO_WritePin(GPIOB, (1 << (row + 8)), GPIO_PIN_SET);
+        HAL_Delay(1); // Delay nhỏ để hiển thị
+        HAL_GPIO_WritePin(GPIOB, (1 << (row + 8)), GPIO_PIN_RESET); // Tắt hàng
+    }
+}

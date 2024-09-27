@@ -137,6 +137,10 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	      	  	  updateClockBuffer();
 	        	setTimer(2,1000);
 	        }
+//	        if (timer_flag[3] == 1){
+//	        	displayLetterA();
+//	        	setTimer(3,1000);
+//	        	        }
 
 	    }
 	}

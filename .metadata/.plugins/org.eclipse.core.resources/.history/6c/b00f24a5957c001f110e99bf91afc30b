@@ -1,0 +1,14 @@
+/*
+ * ledma.h
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+#ifndef INC_LEDMA_H_
+#define INC_LEDMA_H_
+#include "main.h"
+
+void ShiftOut_all(uint8_t data);
+void display_matrix(uint8_t* colData, uint8_t* rowData);
+#endif /* INC_LEDMA_H_ */

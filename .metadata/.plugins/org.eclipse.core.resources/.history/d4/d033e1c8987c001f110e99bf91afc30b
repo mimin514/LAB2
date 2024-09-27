@@ -1,0 +1,60 @@
+/*
+ * ledma.c
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+#include "stm32f1xx_hal.h"
+#include "ledma.h"
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
+
+void ShiftOut_m(uint8_t data)
+{
+    for (int i = 0; i < 8; i++)
+    {
+        if ((data & (1 << (7 - i))))
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET); // Set DATA_PIN
+        else
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET); // Reset DATA_PIN
+
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    // Set CLK_PIN
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);  // Reset CLK_PIN
+    }
+}
+
+void ShiftOut_all(uint8_t data)
+{
+    for (int i = 0; i < 8; i++)
+    {
+        if ((data & (1 << (7 - i))))
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET); // Set DATA_PIN
+        else
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET); // Reset DATA_PIN
+    }
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);    // Set CLK_PIN
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);  // Reset CLK_PIN
+}
+
+void display_matrix(uint8_t* colData, uint8_t* rowData)
+{
+    for (int j = 0; j < 30; j++)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            // Gửi dữ liệu cho cột và hàng
+            ShiftOut_m(colData[i]);
+            ShiftOut_m(rowData[7 - i]);
+
+            // Kích hoạt và reset LATCH_PIN để cập nhật hiển thị
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET);    // Set LATCH_PIN
+            HAL_Delay(1);                                          // Delay nhỏ để đảm bảo ổn định
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET);  // Reset LATCH_PIN
+            HAL_Delay(1);                                          // Delay nhỏ để hoàn thành cập nhật
+        }
+    }
+}

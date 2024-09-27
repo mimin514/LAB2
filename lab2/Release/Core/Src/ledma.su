@@ -1,0 +1,4 @@
+../Core/Src/ledma.c:16:6:updateLEDMatrix	16	static
+../Core/Src/ledma.c:33:6:row	16	static
+../Core/Src/ledma.c:42:6:col	16	static
+../Core/Src/ledma.c:51:6:DisplayPattern	8	static

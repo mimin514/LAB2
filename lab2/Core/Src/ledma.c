@@ -1,152 +1,120 @@
-/*
- * ledma.c
- *
- *  Created on: Sep 20, 2024
- *      Author: User
- */
+///*
+// * ledma.c
+// *
+// *  Created on: Sep 20, 2024
+// *      Author: User
+// */
+//
+//
+//#include "ledma.h"
+//
+//const int MAX_LED_MATRIX = 8;
+//int index_led_matrix = 0;
+//uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+//int count=0;
+//// Function to update the LED matrix based on the index
+//void ledma_init(){
+//	HAL_GPIO_WritePin(GPIOA,
+//			ENM0_Pin|ENM1_Pin|ENM2_Pin|ENM3_Pin|ENM4_Pin|ENM5_Pin|ENM6_Pin|ENM7_Pin,
+//			GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(GPIOB,
+//				ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin,
+//				GPIO_PIN_RESET);
+//}
+//void row(int num){
+//	HAL_GPIO_WritePin(GPIOB,
+//					ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin,
+//					GPIO_PIN_SET);
+//}
+//
+//void updateLEDMatrix(uint8_t *pattern) {
+//    	if(count>=8) count=0;
+//
+//        // Set the current row (only one row active at a time)
+//        row(count);
+//        pattern[count];
+//        count++;
+//
+//}
+//
+//int countrow=0,countcol=0;
+//// Display a pattern on the LED matrix
+//void DisplayPattern(uint8_t* pattern) {
+//        row(countrow);
+//        if (countrow>=8) countrow=0;// Select the row
+//        uint8_t col_data = pattern[countrow]; // Get the column data for the current row
+//
+//            if (col_data & (1 << countcol)) {
+//                col(countcol); // Activate the column if the bit is set
+//                countcol++;
+//                if(countcol>=8)countcol=0;
+//        }
+//        countrow++;
+//        HAL_Delay(1); // Adjust the delay for your refresh rate
+//}
 
 
-#include "ledma.c"
 
-const int MAX_LED_MATRIX = 8;
-int index_led_matrix = 0;
+
+
+
+
+
+#include "ledma.h"
+#include "stm32f1xx_hal.h"  // Include HAL library header
+
 uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
-void updateLEDMatrix(int index){
-	switch (index){
-		case 0:
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7:
-			break;
-		default:
-			break;
-	}
+uint8_t heart[8] = {0x00, 0x66, 0xFF, 0xFF, 0x7E, 0x3C, 0x18, 0x00}; // Heart
+
+int count = 0;
+
+// Function to initialize the LED matrix
+void ledma_init() {
+    HAL_GPIO_WritePin(GPIOA,
+                      ENM0_Pin | ENM1_Pin | ENM2_Pin | ENM3_Pin | ENM4_Pin | ENM5_Pin | ENM6_Pin | ENM7_Pin,
+                      GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB,
+                      ROW0_Pin | ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin,
+                      GPIO_PIN_RESET);
 }
 
-#include "stm32f1xx_hal.h"
+// Function to activate a specific row
+void row(int num) {
+    HAL_GPIO_WritePin(GPIOB,
+                      ROW0_Pin | ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin,
+                      GPIO_PIN_RESET); // Reset all rows
 
-// Function to set a specific row
-void setRow(int index) {
-    // Reset all rows first
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
-
-    // Set the specific row
-    switch (index) {
-        case 0:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
-            break;
-        case 1:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
-            break;
-        case 2:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
-            break;
-        case 3:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
-            break;
-        case 4:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
-            break;
-        case 5:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_SET);
-            break;
-        case 6:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
-            break;
-        case 7:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
-            break;
-        default:
-            break;
+    switch (num) {
+        case 0: HAL_GPIO_WritePin(GPIOB, ROW0_Pin, GPIO_PIN_SET); break;
+        case 1: HAL_GPIO_WritePin(GPIOB, ROW1_Pin, GPIO_PIN_SET); break;
+        case 2: HAL_GPIO_WritePin(GPIOB, ROW2_Pin, GPIO_PIN_SET); break;
+        case 3: HAL_GPIO_WritePin(GPIOB, ROW3_Pin, GPIO_PIN_SET); break;
+        case 4: HAL_GPIO_WritePin(GPIOB, ROW4_Pin, GPIO_PIN_SET); break;
+        case 5: HAL_GPIO_WritePin(GPIOB, ROW5_Pin, GPIO_PIN_SET); break;
+        case 6: HAL_GPIO_WritePin(GPIOB, ROW6_Pin, GPIO_PIN_SET); break;
+        case 7: HAL_GPIO_WritePin(GPIOB, ROW7_Pin, GPIO_PIN_SET); break;
+        default: break;
     }
+
 }
 
-// Function to set the columns for a specific row
-void setColumns(uint8_t data) {
-    // Reset all columns
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+// Function to update the LED matrix with a specific pattern
+void updateLEDMatrix(uint8_t *pattern) {
+    if (count >= 8) count = 0; // Reset count if it exceeds 8
 
-    // Set columns based on data
-    if (data & 0x01) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
-    if (data & 0x02) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
-    if (data & 0x04) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET);
-    if (data & 0x08) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
-    if (data & 0x10) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
-    if (data & 0x20) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
-    if (data & 0x40) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-    if (data & 0x80) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-}
+    // Set the current row (only one row active at a time)
+    row(count);
 
-// Function to display the letter "A"
-void displayLetterA(void) {
-    // Define the pattern for the letter "A"
-    uint8_t letterA[8] = {
-        0x7E,  // Row 0
-        0x81,  // Row 1
-        0x81,  // Row 2
-        0xFF,  // Row 3
-        0x81,  // Row 4
-        0x81,  // Row 5
-        0x81,  // Row 6
-        0x81   // Row 7
-    };
+    // Output the pattern for the current row
+    HAL_GPIO_WritePin(GPIOA, ENM0_Pin, (pattern[count] & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM1_Pin, (pattern[count] & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM2_Pin, (pattern[count] & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM3_Pin, (pattern[count] & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM4_Pin, (pattern[count] & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM5_Pin, (pattern[count] & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM6_Pin, (pattern[count] & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, ENM7_Pin, (pattern[count] & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
-    // Manually set each row and its corresponding column data
-    setRow(0); // Set row 0
-    setColumns(letterA[0]); // Set columns for row 0
-    HAL_Delay(1); // Short delay for persistence
-
-    setRow(1); // Set row 1
-    setColumns(letterA[1]); // Set columns for row 1
-    HAL_Delay(1);
-
-    setRow(2); // Set row 2
-    setColumns(letterA[2]); // Set columns for row 2
-    HAL_Delay(1);
-
-    setRow(3); // Set row 3
-    setColumns(letterA[3]); // Set columns for row 3
-    HAL_Delay(1);
-
-    setRow(4); // Set row 4
-    setColumns(letterA[4]); // Set columns for row 4
-    HAL_Delay(1);
-
-    setRow(5); // Set row 5
-    setColumns(letterA[5]); // Set columns for row 5
-    HAL_Delay(1);
-
-    setRow(6); // Set row 6
-    setColumns(letterA[6]); // Set columns for row 6
-    HAL_Delay(1);
-
-    setRow(7); // Set row 7
-    setColumns(letterA[7]); // Set columns for row 7
-    HAL_Delay(1);
+    count++; // Move to the next row
 }
 

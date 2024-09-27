@@ -1,0 +1,3 @@
+../Core/Src/ledma.c:72:6:ledma_init	8	static
+../Core/Src/ledma.c:82:6:row	16	static
+../Core/Src/ledma.c:102:6:updateLEDMatrix	16	static

@@ -1,0 +1,64 @@
+/*
+ * ledma.c
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+#include "stm32f1xx_hal.h"
+#include "ledma.h"
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
+void ShiftOut_row(uint8_t data)
+{
+    HAL_GPIO_WritePin(GPIOB, ROW0_PIN, (data & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW1_PIN, (data & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW2_PIN, (data & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW3_PIN, (data & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW4_PIN, (data & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW5_PIN, (data & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW6_PIN, (data & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, ROW7_PIN, (data & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+}
+
+// Display function that takes row data and updates the matrix
+void display_matrix(uint8_t* rowData)
+{
+    for (int column = 0; column < 8; column++)
+    {
+        // Enable the corresponding column using ULN2803
+        switch (column)
+        {
+            case 0: HAL_GPIO_WritePin(GPIOB, ENM0_PIN, GPIO_PIN_SET); break;
+            case 1: HAL_GPIO_WritePin(GPIOB, ENM1_PIN, GPIO_PIN_SET); break;
+            case 2: HAL_GPIO_WritePin(GPIOB, ENM2_PIN, GPIO_PIN_SET); break;
+            case 3: HAL_GPIO_WritePin(GPIOB, ENM3_PIN, GPIO_PIN_SET); break;
+            case 4: HAL_GPIO_WritePin(GPIOB, ENM4_PIN, GPIO_PIN_SET); break;
+            case 5: HAL_GPIO_WritePin(GPIOB, ENM5_PIN, GPIO_PIN_SET); break;
+            case 6: HAL_GPIO_WritePin(GPIOB, ENM6_PIN, GPIO_PIN_SET); break;
+            case 7: HAL_GPIO_WritePin(GPIOB, ENM7_PIN, GPIO_PIN_SET); break;
+        }
+
+        // Set the row data to turn on the LEDs
+        ShiftOut_row(rowData[column]);
+
+        // Delay to allow the column to be visible
+        HAL_Delay(1); // Adjust this delay as needed for visibility
+
+        // Disable the column after updating
+        switch (column)
+        {
+            case 0: HAL_GPIO_WritePin(GPIOB, ENM0_PIN, GPIO_PIN_RESET); break;
+            case 1: HAL_GPIO_WritePin(GPIOB, ENM1_PIN, GPIO_PIN_RESET); break;
+            case 2: HAL_GPIO_WritePin(GPIOB, ENM2_PIN, GPIO_PIN_RESET); break;
+            case 3: HAL_GPIO_WritePin(GPIOB, ENM3_PIN, GPIO_PIN_RESET); break;
+            case 4: HAL_GPIO_WritePin(GPIOB, ENM4_PIN, GPIO_PIN_RESET); break;
+            case 5: HAL_GPIO_WritePin(GPIOB, ENM5_PIN, GPIO_PIN_RESET); break;
+            case 6: HAL_GPIO_WritePin(GPIOB, ENM6_PIN, GPIO_PIN_RESET); break;
+            case 7: HAL_GPIO_WritePin(GPIOB, ENM7_PIN, GPIO_PIN_RESET); break;
+        }
+    }
+}

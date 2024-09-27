@@ -1,0 +1,60 @@
+/*
+ * ledma.c
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+
+#include "ledma.h"
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
+// Function to update the LED matrix based on the index
+void updateLEDMatrix(int index){
+    // Clear previous selection (ensure all rows/columns are off)
+    GPIOA->ODR=0x00; // Assuming GPIOA is used for controlling the row/column selection
+
+    switch (index){
+        case 0:
+            // Select row/column 0 and send the data for row/column 0
+            GPIO_Write(GPIOA, 0x01); // Select row/column 0
+            GPIO_Write(GPIOB, matrix_buffer[0]); // Send data to LEDs from matrix_buffer[0]
+            break;
+        case 1:
+            GPIO_Write(GPIOA, 0x02); // Select row/column 1
+            GPIO_Write(GPIOB, matrix_buffer[1]); // Send data to LEDs from matrix_buffer[1]
+            break;
+        case 2:
+            GPIO_Write(GPIOA, 0x04); // Select row/column 2
+            GPIO_Write(GPIOB, matrix_buffer[2]); // Send data to LEDs from matrix_buffer[2]
+            break;
+        case 3:
+            GPIO_Write(GPIOA, 0x08); // Select row/column 3
+            GPIO_Write(GPIOB, matrix_buffer[3]); // Send data to LEDs from matrix_buffer[3]
+            break;
+        case 4:
+            GPIO_Write(GPIOA, 0x10); // Select row/column 4
+            GPIO_Write(GPIOB, matrix_buffer[4]); // Send data to LEDs from matrix_buffer[4]
+            break;
+        case 5:
+            GPIO_Write(GPIOA, 0x20); // Select row/column 5
+            GPIO_Write(GPIOB, matrix_buffer[5]); // Send data to LEDs from matrix_buffer[5]
+            break;
+        case 6:
+            GPIO_Write(GPIOA, 0x40); // Select row/column 6
+            GPIO_Write(GPIOB, matrix_buffer[6]); // Send data to LEDs from matrix_buffer[6]
+            break;
+        case 7:
+            GPIO_Write(GPIOA, 0x80); // Select row/column 7
+            GPIO_Write(GPIOB, matrix_buffer[7]); // Send data to LEDs from matrix_buffer[7]
+            break;
+        default:
+            // If index is out of bounds, do nothing
+            break;
+    }
+}
+
+

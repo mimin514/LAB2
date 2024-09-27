@@ -76,3 +76,117 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-27 10:31:06.499
 !MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:00:23.023
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:00:53.511
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:01:30.908
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:02:02.743
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:02:27.389
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:06:56.301
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:07:18.902
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:08:31.129
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:08:51.415
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:56:16.631
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:58:15.227
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:58:45.133
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 12:59:09.047
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 12:59:27.392
+!MESSAGE Indexed 'lab2' (21 sources, 83 headers) in 4.06 sec: 4,924 declarations; 30,095 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0057%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 12:59:51.857
+!MESSAGE Indexed 'lab2' (21 sources, 83 headers) in 2.79 sec: 4,924 declarations; 30,095 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0057%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 13:00:19.210
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 13:00:22.799
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 13:00:38.440
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 2.45 sec: 4,943 declarations; 30,221 references; 0 unresolved inclusions; 1 syntax errors; 3 unresolved names (0.0085%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 13:03:55.727
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 13:05:00.772
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 13:05:17.593
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 2.23 sec: 4,946 declarations; 30,219 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0057%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 14:33:24.348
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 2.79 sec: 4,947 declarations; 30,214 references; 0 unresolved inclusions; 203 syntax errors; 22 unresolved names (0.063%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 14:50:32.595
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 2.6 sec: 4,935 declarations; 30,200 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0057%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 14:59:04.292
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 14:59:23.400
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 1.84 sec: 4,943 declarations; 30,238 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0057%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 14:59:28.781
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 1.91 sec: 4,943 declarations; 30,238 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0057%)
+!SESSION 2024-09-27 15:00:24.885 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-09-27 15:01:23.873
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-09-27 15:01:24.030
+!MESSAGE Log4j initialized with config file D:\BKU\Year 3\VXL-VDK\git_lab2\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-27 15:01:37.758
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 15:32:24.489
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-27 17:07:10.201
+!MESSAGE Indexed '103rc' (17 sources, 78 headers) in 6.03 sec: 3,761 declarations; 14,364 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.011%)
+!SESSION 2024-09-27 17:11:37.701 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-09-27 17:12:33.181
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-09-27 17:12:33.293
+!MESSAGE Log4j initialized with config file D:\BKU\Year 3\VXL-VDK\git_lab2\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-27 17:13:07.216
+!MESSAGE Started RMI Server, listening on port 41338

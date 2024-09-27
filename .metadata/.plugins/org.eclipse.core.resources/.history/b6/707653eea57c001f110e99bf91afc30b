@@ -1,0 +1,33 @@
+/*
+ * ledma.c
+ *
+ *  Created on: Sep 20, 2024
+ *      Author: User
+ */
+
+
+#include "ledma.h"
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+int count=0;
+// Function to update the LED matrix based on the index
+void updateLEDMatrix(uint8_t *pattern) {
+    	if(count>=8) count=0;
+        // Clear rows and columns
+        HAL_GPIO_WritePin(GPIOA, 0xFF, GPIO_PIN_RESET);  // Reset all rows
+        HAL_GPIO_WritePin(GPIOB, 0xFF, GPIO_PIN_RESET);  // Reset all columns
+
+        // Set the current row (only one row active at a time)
+        HAL_GPIO_WritePin(GPIOA, (1 << i), GPIO_PIN_SET);
+
+        // Set the column data for this row
+        HAL_GPIO_WritePin(GPIOB, pattern[i], GPIO_PIN_SET);
+
+        // Small delay to allow the row to display
+        HAL_Delay(100);  // 1ms delay to simulate row scanning
+        count++;
+
+}
+
