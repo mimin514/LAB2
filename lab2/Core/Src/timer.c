@@ -7,9 +7,11 @@
 
 #include "timer.h"
 #include "led7.h"
+#include "ledma.h"
 
 #define NUM_TIMERS 10  // Number of timers you want to handle
 #define TICK 10
+
 int timer_flag[NUM_TIMERS];  // Timer flags for each timer
 int timer_counter[NUM_TIMERS];  // Timer counters for each timer
 
@@ -24,6 +26,15 @@ int index_led=0;
 int hour = 15, minute = 8, second = 50;
 int led_state=0;
 
+uint8_t heart[8] =
+    {0x00, 0x66, 0xFF, 0xFF, 0x7E, 0x3C, 0x18, 0x00}; // Trái tim
+    // {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66}; // Chữ A
+    // {0x63, 0x66, 0x6C, 0x78, 0x78, 0x6C, 0x66, 0x63}, // Chữ K
+    // {0x00, 0xC3, 0xE7, 0xFF, 0xDB, 0xC3, 0xC3, 0xC3}, // Chữ M
+    // {0x00, 0xC3, 0xE3, 0xF3, 0xDB, 0xCF, 0xC7, 0xC3}, // Chữ N
+    // {0x3C, 0x42, 0xA5, 0x81, 0xA5, 0x99, 0x42, 0x3C}, // Mặt cư�?i
+    // {0x0B, 0x7E, 0xD8, 0x18, 0x18, 0x24, 0x42, 0xC3}  // H�? hước
+//};
 void setTimer(int timer_id, int duration)
 {
 	if (timer_id >= 0 && timer_id < NUM_TIMERS)
@@ -137,10 +148,10 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	      	  	  updateClockBuffer();
 	        	setTimer(2,1000);
 	        }
-//	        if (timer_flag[3] == 1){
-//	        	displayLetterA();
-//	        	setTimer(3,1000);
-//	        	        }
+	        if (timer_flag[3] == 1){
+	        	updateLEDMatrix(heart);
+	        	setTimer(3,1);
+	        	        }
 
 	    }
 	}

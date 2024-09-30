@@ -190,3 +190,12 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-27 17:13:07.216
 !MESSAGE Started RMI Server, listening on port 41338
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-30 11:59:24.604
+!MESSAGE Indexed 'lab2' (23 sources, 83 headers) in 2.34 sec: 4,961 declarations; 30,876 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0056%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-30 11:59:35.689
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 1.97 sec: 4,936 declarations; 30,481 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0056%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-09-30 12:03:31.915
+!MESSAGE Indexed 'lab2' (22 sources, 83 headers) in 2.01 sec: 4,935 declarations; 30,484 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0056%)
