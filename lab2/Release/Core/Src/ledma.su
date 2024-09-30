@@ -1,3 +1,7 @@
 ../Core/Src/ledma.c:13:6:ledma_init	8	static
 ../Core/Src/ledma.c:22:6:row	8	static
 ../Core/Src/ledma.c:41:6:updateLEDMatrix	16	static
+../Core/Src/ledma.c:58:6:shift	0	static
+../Core/Src/ledma.c:65:6:shiftleftLEDMatrix	24	static
+../Core/Src/ledma.c:79:6:runex9	0	static
+../Core/Src/ledma.c:82:6:runex10	0	static

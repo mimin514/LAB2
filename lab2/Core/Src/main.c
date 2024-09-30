@@ -92,7 +92,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
+  //HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,12 +101,14 @@ int main(void)
 //  setTimer(0,1000);
 //  setTimer(1,250);
 //  setTimer(2,1000);
-  setTimer(3,1);
+  //setTimer(3,100);
+  //setTimer(4,1000);
   ledma_init();
+
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  runex10();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

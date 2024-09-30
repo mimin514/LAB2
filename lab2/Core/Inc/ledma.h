@@ -11,6 +11,8 @@
 
 void ledma_init();
 void updateLEDMatrix(uint8_t *pattern) ;
-void row(int num);
+void shiftleftLEDMatrix(uint8_t* data) ;
+void runex9();
+void runex10();
 
 #endif /* INC_LEDMA_H_ */

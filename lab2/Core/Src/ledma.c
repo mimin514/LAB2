@@ -6,9 +6,19 @@
  */
 
 #include "ledma.h"
+#include "timer.h"
 #include "stm32f1xx_hal.h"
-
+#include <string.h>
 int count = 0;
+uint8_t heart[8] =
+    //{0x00, 0x66, 0xFF, 0xFF, 0x7E, 0x3C, 0x18, 0x00}; // Trái tim
+     {0x18, 0x3C, 0x66, 0x66, 0x7E, 0x7E, 0x66, 0x66}; // Chữ A
+    // {0x63, 0x66, 0x6C, 0x78, 0x78, 0x6C, 0x66, 0x63}, // Chữ K
+    // {0x00, 0xC3, 0xE7, 0xFF, 0xDB, 0xC3, 0xC3, 0xC3}, // Chữ M
+    // {0x00, 0xC3, 0xE3, 0xF3, 0xDB, 0xCF, 0xC7, 0xC3}, // Chữ N
+    // {0x3C, 0x42, 0xA5, 0x81, 0xA5, 0x99, 0x42, 0x3C}, // Mặt cư�?i
+    // {0x0B, 0x7E, 0xD8, 0x18, 0x18, 0x24, 0x42, 0xC3}  // H�? hước
+//};
 
 void ledma_init() {
     HAL_GPIO_WritePin(GPIOA,
@@ -55,3 +65,30 @@ void updateLEDMatrix(uint8_t *pattern) {
     count++;
 }
 
+void shift(uint8_t *pattern){
+    for (int i = 0; i < 8; i++) {
+        uint8_t temp = (pattern[i] << 1) | ((pattern[i] & 0x80) >> 7);  // Shift left and wrap the leftmost bit to the right
+        pattern[i] = temp;
+    }
+}
+
+void shiftleftLEDMatrix(uint8_t* data) {
+	 uint8_t buffer[8];
+    memcpy(buffer, data, 8);
+
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            updateLEDMatrix(buffer);
+            HAL_Delay(2);
+        }
+        shift(buffer);
+
+        HAL_Delay(20);
+    }
+}
+void runex9(){
+	updateLEDMatrix(heart);
+}
+void runex10(){
+	shiftleftLEDMatrix(heart);
+}
