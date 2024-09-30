@@ -92,8 +92,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        	update7SEG(index_led);
 
 				index_led = (index_led + 1) % MAX_LED;
-				setTimer(2, 1600);
+				setTimer(2, 400);
 			}
 	    }
 	}
-

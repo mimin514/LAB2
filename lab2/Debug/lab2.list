@@ -550,8 +550,8 @@ int main(void)
  8000498:	21c8      	movs	r1, #200	; 0xc8
  800049a:	2001      	movs	r0, #1
  800049c:	f000 f968 	bl	8000770 <setTimer>
-  setTimer(2,1600);
- 80004a0:	f44f 61c8 	mov.w	r1, #1600	; 0x640
+  setTimer(2,400);
+ 80004a0:	f44f 71c8 	mov.w	r1, #400	; 0x190
  80004a4:	2002      	movs	r0, #2
  80004a6:	f000 f963 	bl	8000770 <setTimer>
   while (1)
@@ -1481,8 +1481,8 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
  8000946:	4253      	negpl	r3, r2
  8000948:	4a0a      	ldr	r2, [pc, #40]	; (8000974 <HAL_TIM_PeriodElapsedCallback+0xd8>)
  800094a:	6013      	str	r3, [r2, #0]
-				setTimer(2, 1600);
- 800094c:	f44f 61c8 	mov.w	r1, #1600	; 0x640
+				setTimer(2, 400);
+ 800094c:	f44f 71c8 	mov.w	r1, #400	; 0x190
  8000950:	2002      	movs	r0, #2
  8000952:	f7ff ff0d 	bl	8000770 <setTimer>
 			}
