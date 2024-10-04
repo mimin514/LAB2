@@ -1,0 +1,23 @@
+/*
+ * timer.h
+ *
+ *  Created on: Sep 18, 2024
+ *      Author: User
+ */
+
+#ifndef INC_TIMER_H_
+#define INC_TIMER_H_
+
+#include "main.h"
+#define NUM_TIMERS 10  // Number of timers you want to handle
+#define TICK 10
+int timer_flag[NUM_TIMERS];  // Timer flags for each timer
+int timer_counter[NUM_TIMERS];
+int led_buffer[MAX_LED];  // Example buffer with 4 digits to display
+int index_led=0;
+
+int hour = 15, minute = 8, second = 50;
+void setTimer(int timer_id, int duration);
+void timerRun(void);
+void updateClockBuffer(void);
+#endif /* INC_TIMER_H_ */

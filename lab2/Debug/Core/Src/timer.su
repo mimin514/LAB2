@@ -1,6 +1,0 @@
-../Core/Src/timer.c:27:6:setTimer	16	static
-../Core/Src/timer.c:35:6:timerRun	16	static
-../Core/Src/timer.c:51:6:display_digit	16	static
-../Core/Src/timer.c:55:6:update7SEG	16	static
-../Core/Src/timer.c:89:6:updateClockBuffer	16	static
-../Core/Src/timer.c:102:6:HAL_TIM_PeriodElapsedCallback	16	static
