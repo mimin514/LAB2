@@ -211,13 +211,12 @@ int main(void)
       }
 
       if (timer_flag[1] == 1){
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+			display_digit(led_buffer[index_led]);
+			HAL_GPIO_WritePin(GPIOA, digit_pins[index_led], 0);
+			update7SEG(index_led);
+			index_led++;
 
-				display_digit(led_buffer[index_led]);
-
-				HAL_GPIO_WritePin(GPIOA, digit_pins[index_led], 0);
-update7SEG(index_led);
-      	index_led++;
 			if (index_led >= 4) index_led = 0;
 			setTimer(1,250);
 		}

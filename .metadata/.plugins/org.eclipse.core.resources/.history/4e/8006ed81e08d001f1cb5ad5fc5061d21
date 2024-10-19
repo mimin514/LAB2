@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "led7.h"
+#include "timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,10 +56,31 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+
 #define NUM_TIMERS 10  // Number of timers you want to handle
 #define TICK 10
 int timer_flag[NUM_TIMERS];  // Timer flags for each timer
 int timer_counter[NUM_TIMERS];  // Timer counters for each timer
+
+int digit_index = 0;
+const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
+const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
+
+#define MAX_LED 4
+int led_buffer[MAX_LED];  // Example buffer with 4 digits to display
+int index_led=0;
+
+int hour = 15, minute = 8, second = 50;
+int led_state=0;
+
+
 
 void setTimer(int timer_id, int duration)
 {
@@ -79,17 +101,69 @@ void timerRun(void)
             if (timer_counter[i] <= 0)
             {
                 timer_flag[i] = 1;  // Timer expired
-                // Optional: Trigger a specific action for timer expiration
             }
         }
     }
 }
-/* USER CODE END 0 */
 
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
+void display_digit(uint8_t digit)
+{
+    display1(digit);
+}
+void update7SEG(int index) {
+    switch (index) {
+        case 0:
+            display1(led_buffer[0]);
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 0);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+            break;
+        case 1:
+            display1(led_buffer[1]);
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 0);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+            break;
+        case 2:
+            display1(led_buffer[2]);
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 0);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+            break;
+        case 3:
+            display1(led_buffer[3]);
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 0);
+            break;
+        default:
+            break;
+    }
+}
+void updateClockBuffer(void)
+{
+    uint8_t hour_tens = hour / 10;
+    uint8_t hour_units = hour % 10;
+    uint8_t minute_tens = minute / 10;
+    uint8_t minute_units = minute % 10;
+
+    led_buffer[0] = hour_tens;
+    led_buffer[1] = hour_units;
+    led_buffer[2] = minute_tens;
+    led_buffer[3] = minute_units;
+}
+
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM2){
+	        timerRun();
+	    }
+	}
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -123,13 +197,46 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+
   setTimer(0,1000);
-  setTimer(1,500);
+  setTimer(1,250);
+  setTimer(2,1000);
+
+
   while (1)
   {
+      if (timer_flag[0] == 1){
+          HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+          setTimer(0, 1000);
+      }
 
+      if (timer_flag[1] == 1){
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+
+				display_digit(led_buffer[index_led]);
+
+				HAL_GPIO_WritePin(GPIOA, digit_pins[index_led], 0);
+update7SEG(index_led);
+      	index_led++;
+			if (index_led >= 4) index_led = 0;
+			setTimer(1,250);
+		}
+      if (timer_flag[2] == 1){
+    	  second++;
+    	  	  if (second >= 60) {
+    	  		  second = 0;
+    	  		  minute++;
+    	  	  }
+    	  	  if( minute >= 60) {
+    	  		  minute = 0;
+    	  		  hour++;
+    	  	  }
+    	  	  if( hour >=24){
+    	  		  hour = 0;
+    	  	  }
+    	  	  updateClockBuffer();
+      	setTimer(2,1000);
+      }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -261,41 +368,6 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-int digit_index = 0;
-const uint8_t digits[] = {1, 2, 3, 0};  // Digits to display in order
-
-// Update to include all four pins
-const uint16_t digit_pins[] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9};  // PA6, PA7, PA8, PA9
-
-void display_digit(uint8_t digit)
-{
-    // Implement the logic to display the corresponding digit on the 7-segment display
-    // For example:
-    display1(digit);  // Assuming display7SEG is a function that takes a number and displays it
-}
-void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
-{
-	if (htim->Instance == TIM2){
-	        timerRun();
-
-	        if (timer_flag[0] == 1){
-	            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-	            setTimer(0, 2000);
-	        }
-
-	        if (timer_flag[1] == 1){
-	            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
-
-	            display_digit(digits[digit_index]);
-
-	            HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
-
-	            digit_index++;
-	            if (digit_index >= 4) digit_index = 0;
-	            setTimer(1,500);
-	        }
-	    }
-	}
 /* USER CODE END 4 */
 
 /**
