@@ -156,7 +156,39 @@ void updateClockBuffer(void)
     led_buffer[2] = minute_tens;
     led_buffer[3] = minute_units;
 }
+void update_timer(){
+	if (timer_flag[0] == 1){
+	          HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+	          setTimer(0, 1000);
+	      }
 
+	      if (timer_flag[1] == 1){
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+				display_digit(led_buffer[index_led]);
+				HAL_GPIO_WritePin(GPIOA, digit_pins[index_led], 0);
+				update7SEG(index_led);
+				index_led++;
+
+				if (index_led >= 4) index_led = 0;
+				setTimer(1,250);
+			}
+	      if (timer_flag[2] == 1){
+	    	  second++;
+	    	  	  if (second >= 60) {
+	    	  		  second = 0;
+	    	  		  minute++;
+	    	  	  }
+	    	  	  if( minute >= 60) {
+	    	  		  minute = 0;
+	    	  		  hour++;
+	    	  	  }
+	    	  	  if( hour >=24){
+	    	  		  hour = 0;
+	    	  	  }
+	    	  	  updateClockBuffer();
+	      	setTimer(2,1000);
+	      }
+}
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
@@ -205,37 +237,7 @@ int main(void)
 
   while (1)
   {
-      if (timer_flag[0] == 1){
-          HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-          setTimer(0, 1000);
-      }
-
-      if (timer_flag[1] == 1){
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
-			display_digit(led_buffer[index_led]);
-			HAL_GPIO_WritePin(GPIOA, digit_pins[index_led], 0);
-			update7SEG(index_led);
-			index_led++;
-
-			if (index_led >= 4) index_led = 0;
-			setTimer(1,250);
-		}
-      if (timer_flag[2] == 1){
-    	  second++;
-    	  	  if (second >= 60) {
-    	  		  second = 0;
-    	  		  minute++;
-    	  	  }
-    	  	  if( minute >= 60) {
-    	  		  minute = 0;
-    	  		  hour++;
-    	  	  }
-    	  	  if( hour >=24){
-    	  		  hour = 0;
-    	  	  }
-    	  	  updateClockBuffer();
-      	setTimer(2,1000);
-      }
+	  update_timer();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
