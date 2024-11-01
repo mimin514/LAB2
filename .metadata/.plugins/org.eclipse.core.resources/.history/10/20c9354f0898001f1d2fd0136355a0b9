@@ -13,5 +13,4 @@
 void setTimer(int timer_id, int duration);
 void timerRun(void);
 void updateClockBuffer(void);
-void update_timer();
 #endif /* INC_TIMER_H_ */

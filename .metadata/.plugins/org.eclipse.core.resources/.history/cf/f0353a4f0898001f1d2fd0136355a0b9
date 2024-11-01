@@ -109,48 +109,49 @@ void updateClockBuffer(void)
     led_buffer[2] = minute_tens;
     led_buffer[3] = minute_units;
 }
-void update_timer(){
-	 if (timer_flag[0] == 1){
-		            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-		            setTimer(0, 1000);
-		        }
 
-		        if (timer_flag[1] == 1){
-
-					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
-
-					display_digit(led_buffer[digit_index]);
-
-					HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
-
-					digit_index++;
-					if (digit_index >= 4) digit_index = 0;
-					setTimer(1,250);
-				}
-		        if (timer_flag[2] == 1){
-		      	  second++;
-		      	  	  if (second >= 60) {
-		      	  		  second = 0;
-		      	  		  minute++;
-		      	  	  }
-		      	  	  if( minute >= 60) {
-		      	  		  minute = 0;
-		      	  		  hour++;
-		      	  	  }
-		      	  	  if( hour >=24){
-		      	  		  hour = 0;
-		      	  	  }
-		      	  	  updateClockBuffer();
-		        	setTimer(2,1000);
-		        }
-		        if (timer_flag[3] == 1){
-		        	updateLEDMatrix(heart);
-		        	setTimer(3,1);
-		        	        }
-}
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
 	        timerRun();
+
+	        if (timer_flag[0] == 1){
+	            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+	            setTimer(0, 1000);
+	        }
+
+	        if (timer_flag[1] == 1){
+
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+
+				display_digit(led_buffer[digit_index]);
+
+				HAL_GPIO_WritePin(GPIOA, digit_pins[digit_index], 0);
+
+				digit_index++;
+				if (digit_index >= 4) digit_index = 0;
+				setTimer(1,250);
+			}
+	        if (timer_flag[2] == 1){
+	      	  second++;
+	      	  	  if (second >= 60) {
+	      	  		  second = 0;
+	      	  		  minute++;
+	      	  	  }
+	      	  	  if( minute >= 60) {
+	      	  		  minute = 0;
+	      	  		  hour++;
+	      	  	  }
+	      	  	  if( hour >=24){
+	      	  		  hour = 0;
+	      	  	  }
+	      	  	  updateClockBuffer();
+	        	setTimer(2,1000);
+	        }
+	        if (timer_flag[3] == 1){
+	        	updateLEDMatrix(heart);
+	        	setTimer(3,1);
+	        	        }
+
 	    }
 	}

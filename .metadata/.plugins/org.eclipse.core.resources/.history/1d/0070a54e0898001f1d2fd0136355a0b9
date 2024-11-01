@@ -105,7 +105,6 @@ int main(void)
   ledma_init();
   while (1)
   {
-	  update_timer();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
