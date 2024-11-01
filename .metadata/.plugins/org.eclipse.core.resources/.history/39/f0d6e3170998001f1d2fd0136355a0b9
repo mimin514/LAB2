@@ -7,7 +7,7 @@
 
 #include "timer.h"
 #include "led7.h"
-#include "ledma.h"
+
 #define NUM_TIMERS 10  // Number of timers you want to handle
 #define TICK 10
 int timer_flag[NUM_TIMERS];  // Timer flags for each timer
@@ -23,6 +23,8 @@ int index_led=0;
 
 int hour = 15, minute = 8, second = 50;
 int led_state=0;
+
+
 
 void setTimer(int timer_id, int duration)
 {
@@ -138,9 +140,13 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        	setTimer(2,1000);
 	        }
 	        if (timer_flag[3] == 1){
-	        	updateLEDMatrix(heart);
+	        	runex9();
 	        	setTimer(3,1);
-	        	        }
+	        }
+	        if (timer_flag[4] == 1){
+	        	runex10();
+				setTimer(4,1000);
+			}
 
 	    }
 	}

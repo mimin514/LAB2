@@ -3,4 +3,5 @@
 ../Core/Src/timer.c:53:6:display_digit	16	static
 ../Core/Src/timer.c:57:6:update7SEG	16	static
 ../Core/Src/timer.c:91:6:updateClockBuffer	16	static
-../Core/Src/timer.c:104:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/timer.c:103:6:update_timer	8	static
+../Core/Src/timer.c:146:6:HAL_TIM_PeriodElapsedCallback	16	static

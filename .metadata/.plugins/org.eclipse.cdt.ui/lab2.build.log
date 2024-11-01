@@ -1,13 +1,6 @@
-10:54:03 **** Incremental Build of configuration Debug for project lab2 ****
+11:25:25 **** Incremental Build of configuration Debug for project lab2 ****
 make -j4 all 
 arm-none-eabi-gcc "../Core/Src/timer.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/timer.d" -MT"Core/Src/timer.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/timer.o"
-../Core/Src/timer.c: In function 'HAL_TIM_PeriodElapsedCallback':
-../Core/Src/timer.c:143:11: warning: implicit declaration of function 'runex9' [-Wimplicit-function-declaration]
-  143 |           runex9();
-      |           ^~~~~~
-../Core/Src/timer.c:147:11: warning: implicit declaration of function 'runex10' [-Wimplicit-function-declaration]
-  147 |           runex10();
-      |           ^~~~~~~
 arm-none-eabi-gcc -o "lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git_lab2\lab2\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: lab2.elf
  
@@ -15,13 +8,13 @@ arm-none-eabi-size   lab2.elf
 arm-none-eabi-objdump -h -S  lab2.elf  > "lab2.list"
 arm-none-eabi-objcopy  -O ihex  lab2.elf  "lab2.hex"
    text	   data	    bss	    dec	    hex	filename
-   9012	     40	   1744	  10796	   2a2c	lab2.elf
+   7592	     28	   1724	   9344	   2480	lab2.elf
 Finished building: default.size.stdout
-Finished building: lab2.hex
  
+Finished building: lab2.hex
  
 Finished building: lab2.list
  
 
-10:54:04 Build Finished. 0 errors, 2 warnings. (took 1s.288ms)
+11:25:26 Build Finished. 0 errors, 0 warnings. (took 1s.263ms)
 
